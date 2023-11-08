@@ -10,7 +10,6 @@ This is my weekly assignment for Platform Based Programming lecture.
 ### Scope
 - [What are the main differences between stateless and stateful widget in Flutter?](#what-are-the-main-differences-between-stateless-and-stateful-widget-in-flutter)
 - [Explain all widgets that you used in this assignment.](#explain-all-widgets-that-you-used-in-this-assignment)
-- [Why do we use virtual environment?](#why-do-we-use-virtual-environment)
 - [Explain how you implemented the checklist above step-by-step.](#explain-how-you-implemented-the-checklist-above-step-by-step)
 
 ---
