@@ -1,16 +1,32 @@
-# e_katalog
+# Cyber Katalog Mobile
 
-A new Flutter project.
+This is my weekly assignment for Platform Based Programming lecture.
 
-## Getting Started
+### Jump to
+- [Week 07](#week-07)
 
-This project is a starting point for a Flutter application.
+## Week 07
 
-A few resources to get you started if this is your first Flutter project:
+### Scope
+- [What are the main differences between stateless and stateful widget in Flutter?](#what-are-the-main-differences-between-stateless-and-stateful-widget-in-flutter)
+- [Explain all widgets that you used in this assignment.](#explain-all-widgets-that-you-used-in-this-assignment)
+- [Why do we use virtual environment?](#why-do-we-use-virtual-environment)
+- [Explain how you implemented the checklist above step-by-step.](#explain-how-you-implemented-the-checklist-above-step-by-step)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### What are the main differences between stateless and stateful widget in Flutter?
+Stateful widgets can change over time according to the given state. For example, stateful widgets can change in response to user interactions or when a data feed updates. On the other hand, stateless widgets are pre-defined and does not depend on any runtime state. Once we set the parameters of a stateless widget, it cannot be changed on run time. `MyHomePage` in `lib/menu.dart` is a stateless widget. We need to make it stateful if we want to change the `items` list based on user interactions.
+
+### Explain all widgets that you used in this assignment.
+- `MyApp` in `lib/main.dart`
+- `MyHomePage` in `lib/menu.dart`
+- `ShopCard` in `lib/menu.dart`
+
+All of them are stateless widgets.
+
+
+### Explain how you implemented the checklist above step-by-step.
+1. Organize the initial project of flutter, separate.
+2. Make a file named `menu.dart` so `main.dart` only needs to import and call `MyHomePage()` widget from `menu.dart` for better modularity.
+3. Create a new widget for our 3 buttons followed by snackbar.
