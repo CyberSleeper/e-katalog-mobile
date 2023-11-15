@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:e_katalog/widgets/left_drawer.dart';
+import 'package:e_katalog/models/product.dart';
 
 class ShopFormPage extends StatefulWidget {
   const ShopFormPage({super.key});
@@ -10,9 +11,7 @@ class ShopFormPage extends StatefulWidget {
 
 class _ShopFormPageState extends State<ShopFormPage> {
   final _formKey = GlobalKey<FormState>();
-  String _name = "";
-  int _amount = 0;
-  String _description = "";
+  Product _product = Product(name: '', amount: 0, description: '');
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +44,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _name = value!;
+                      _product.name = value!;
                     });
                   },
                   validator: (String? value) {
@@ -68,7 +67,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _amount = int.parse(value!);
+                      _product.amount = int.parse(value!);
                     });
                   },
                   validator: (String? value) {
@@ -77,6 +76,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     }
                     if (int.tryParse(value) == null) {
                       return "Jumlah harus berupa angka!";
+                    }
+                    if (_product.amount < 0) {
+                      return "Jumlah tidak boleh negatif!";
                     }
                     return null;
                   },
@@ -94,7 +96,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _description = value!;
+                      _product.description = value!;
                     });
                   },
                   validator: (String? value) {
@@ -126,9 +128,9 @@ class _ShopFormPageState extends State<ShopFormPage> {
                                   crossAxisAlignment: 
                                     CrossAxisAlignment.start,
                                   children: [
-                                    Text('Nama: $_name'),
-                                    Text('Jumlah: $_amount'),
-                                    Text('Deskripsi: $_description'),
+                                    Text('Nama: $_product.name'),
+                                    Text('Jumlah: $_product.amount'),
+                                    Text('Deskripsi: $_product.description'),
                                   ],
                                 ),
                               ),
@@ -143,6 +145,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                             );
                           },
                         );
+                        Product.productList.add(_product);
                         _formKey.currentState!.reset();
                       }
                     },

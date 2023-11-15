@@ -1,5 +1,6 @@
 import 'package:e_katalog/screens/katalogList_form.dart';
 import 'package:flutter/material.dart';
+import 'package:e_katalog/screens/kataloglist_page.dart';
 
 class ShopItem {
   final String name;
@@ -31,6 +32,13 @@ class ShopCard extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => const ShopFormPage(),
+              )
+            );
+          } else if (item.name == "Lihat Item") {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ShopListPage(),
               )
             );
           }
