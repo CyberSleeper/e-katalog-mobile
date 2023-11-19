@@ -1,7 +1,7 @@
 import 'package:e_katalog/screens/kataloglist_form.dart';
+import 'package:e_katalog/screens/list_product.dart';
 import 'package:flutter/material.dart';
 import 'package:e_katalog/screens/menu.dart';
-import 'package:e_katalog/screens/kataloglist_page.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -65,16 +65,15 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.checklist),
-            title: const Text("Lihat Item"),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const ShopListPage()
-                )
-              );
-            },
+              leading: const Icon(Icons.shopping_basket),
+              title: const Text('Daftar Item'),
+              onTap: () {
+                  // Route menu ke halaman Item
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProductPage()),
+                  );
+              },
           ),
         ],
       ),

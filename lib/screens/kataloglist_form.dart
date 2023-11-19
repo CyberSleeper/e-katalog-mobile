@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:e_katalog/screens/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:e_katalog/widgets/left_drawer.dart';
-import 'package:e_katalog/models/product.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class ShopFormPage extends StatefulWidget {
   const ShopFormPage({super.key});
@@ -11,10 +15,14 @@ class ShopFormPage extends StatefulWidget {
 
 class _ShopFormPageState extends State<ShopFormPage> {
   final _formKey = GlobalKey<FormState>();
-  Product _product = Product(name: '', amount: 0, description: '');
+  String _name = "";
+  int _amount = 0;
+  String _description = "";
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -44,7 +52,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _product.name = value!;
+                      _name = value!;
                     });
                   },
                   validator: (String? value) {
@@ -67,7 +75,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _product.amount = int.parse(value!);
+                      _amount = int.parse(value!);
                     });
                   },
                   validator: (String? value) {
@@ -76,9 +84,6 @@ class _ShopFormPageState extends State<ShopFormPage> {
                     }
                     if (int.tryParse(value) == null) {
                       return "Jumlah harus berupa angka!";
-                    }
-                    if (_product.amount < 0) {
-                      return "Jumlah tidak boleh negatif!";
                     }
                     return null;
                   },
@@ -96,7 +101,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _product.description = value!;
+                      _description = value!;
                     });
                   },
                   validator: (String? value) {
@@ -114,39 +119,35 @@ class _ShopFormPageState extends State<ShopFormPage> {
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor:
-                        MaterialStateProperty.all(Colors.indigo),
+                          MaterialStateProperty.all(Colors.indigo),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        showDialog(
-                          context: context, 
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text('Produk berhasil ditambahkan!'),
-                              content: SingleChildScrollView(
-                                child: Column(
-                                  crossAxisAlignment: 
-                                    CrossAxisAlignment.start,
-                                  children: [
-                                    Text('Nama: $_product.name'),
-                                    Text('Jumlah: $_product.amount'),
-                                    Text('Deskripsi: $_product.description'),
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  }, 
-                                  child: const Text("OK"),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                        Product.productList.add(_product);
-                        _formKey.currentState!.reset();
+                        // Kirim ke Django dan tunggu respons
+                        final response = await request.postJson(
+                        "http://127.0.0.1:8000/create-flutter/",
+                        // "http://mahartha-gemilang-tugas.pbp.cs.ui.ac.id/create-flutter/",
+                        jsonEncode(<String, String>{
+                          'name': _name,
+                          'amount': _amount.toString(),
+                          'description': _description,
+                        }));
+                        if (response['status'] == 'success') {
+                          ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Produk baru berhasil disimpan!"),
+                          ));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => MyHomePage()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                            content:
+                              Text("Terdapat kesalahan, silakan coba lagi."),
+                          ));
+                        }
                       }
                     },
                     child: const Text(
@@ -157,7 +158,7 @@ class _ShopFormPageState extends State<ShopFormPage> {
                 ),
               ),
             ],
-          )
+          ),
         ),
       ),
     );
