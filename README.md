@@ -5,6 +5,7 @@ This is my weekly assignment for Platform Based Programming lecture.
 ### Jump to
 - [Week 07](#week-07)
 - [Week 08](#week-08)
+- [Week 09](#week-09)
 
 ## Week 07
 
@@ -83,3 +84,56 @@ The presentation layer can access the domain layer, but not the data layer. The 
 1. Create an add product page using form for adding a new product with 3 fields: name, amount, and description. The form will be validated before submitting. If the form is valid, it will show a popup with the form data.
 2. Create a drawer menu with 2 menu items: home and add product. The home menu item will navigate to the home page. The add product menu item will navigate to the add product page.
 3. Integrate the routing of buttons with its respective pages.
+
+## Week 09
+
+### Scope
+
+- [Can we retrieve JSON data without creating a model first? If yes, is it better than creating a model before retrieving JSON data?](#can-we-retrieve-json-data-without-creating-a-model-first-if-yes-is-it-better-than-creating-a-model-before-retrieving-json-data)
+
+- [Explain the function of CookieRequest and explain why a CookieRequest instance needs to be shared with all components in a Flutter application.](#explain-the-function-of-cookierequest-and-explain-why-a-cookierequest-instance-needs-to-be-shared-with-all-components-in-a-flutter-application)
+
+- [Explain the mechanism of fetching data from JSON until it can be displayed on Flutter.](#explain-the-mechanism-of-fetching-data-from-json-until-it-can-be-displayed-on-flutter)
+
+- [Explain the authentication mechanism from entering account data on Flutter to Django authentication completion and the display of menus on Flutter.](#explain-the-authentication-mechanism-from-entering-account-data-on-flutter-to-django-authentication-completion-and-the-display-of-menus-on-flutter)
+
+- [List all the widgets you used in this assignment and explain their respective functions.](#list-all-the-widgets-you-used-in-this-assignment-and-explain-their-respective-functions)
+
+- [Explain how you implemented the checklist above step-by-step.](#explain-how-you-implemented-the-checklist-above-step-by-step)
+
+---
+
+### Can we retrieve JSON data without creating a model first? If yes, is it better than creating a model before retrieving JSON data?
+
+Yes, it is possible by using `Map<String, dynamic>`. However, it is better to create a model first because it will make the code more readable and easier to maintain.
+
+### Explain the function of CookieRequest and explain why a CookieRequest instance needs to be shared with all components in a Flutter application.
+
+Just like cookie in web development, `CookieRequest` is used to store necessary informations like session id. It needs to be shared with all components in a Flutter application because we need to send the session id to the server every time we make a request.
+
+### Explain the mechanism of fetching data from JSON until it can be displayed on Flutter.
+
+Firstly, we need to create a model for the data. Then, we need to create a service to fetch the data from the server. After that, we need to create a repository to call the service. Finally, we can call the repository from the UI code to fetch the data.
+
+### Explain the authentication mechanism from entering account data on Flutter to Django authentication completion and the display of menus on Flutter.
+
+Flutter will send the auth data to our Django server. Django will check the auth data and return the corrresponding response. If the auth data is valid, Django will return a session id. Then, Flutter will store the session id in `CookieRequest` and use it to make requests to the server. If the auth data is invalid, Django will return an error message and Flutter will show the error message to the user.
+
+### List all the widgets you used in this assignment and explain their respective functions.
+
+- `ListView`: to display a list of widgets.
+- `SizedBox`: to set a fixed size of a widget.
+- `Container`: to contain other widgets.
+- `Column`: to arrange widgets vertically.
+- `Row`: to arrange widgets horizontally.
+- `TextFormField`: to display a text input field.
+- `Text`: to display a text.
+- `Scaffold`: to create a page with a navigation bar.
+
+### Explain how you implemented the checklist above step-by-step.
+
+1. Create a login page.
+2. integrate it with our Django server.
+3. Create a model for the product data.
+4. Create a service to fetch the product data from the server.
+5. Create a page to display the product data.
