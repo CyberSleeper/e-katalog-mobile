@@ -1,9 +1,11 @@
+import 'package:e_katalog/main.dart';
 import 'package:e_katalog/screens/detail_product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:e_katalog/models/product.dart';
 import 'package:e_katalog/widgets/left_drawer.dart';
+import 'package:provider/provider.dart';
 
 class ProductPage extends StatefulWidget {
     const ProductPage({Key? key}) : super(key: key);
@@ -14,9 +16,10 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
 Future<List<Product>> fetchProduct() async {
+    String username = Provider.of<UserProvider>(context).username;
     var url = Uri.parse(
-        // 'http://mahartha-gemilang-tugas.pbp.cs.ui.ac.id/json'
-        'http://127.0.0.1:8000/json/'
+        // 'http://mahartha-gemilang-tugas.pbp.cs.ui.ac.id/json-flutter/$username'
+        'http://127.0.0.1:8000/json-flutter/$username'
     );
     var response = await http.get(
         url,
