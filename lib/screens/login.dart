@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
+import 'register.dart';
+
 void main() {
     runApp(const LoginApp());
 }
@@ -105,6 +107,16 @@ class _LoginPageState extends State<LoginPage> {
                                 }
                             },
                             child: const Text('Login'),
+                        ),
+                        const SizedBox(height: 12.0),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => RegisterPage()), // Navigate to the register page
+                            );
+                          },
+                          child: const Text('Create account'),
                         ),
                     ],
                 ),
